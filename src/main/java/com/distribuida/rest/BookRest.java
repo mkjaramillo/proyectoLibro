@@ -50,7 +50,7 @@ public class BookRest {
         libroExistente.setPrice(libro.getPrice());
 
 
-        libroExistente.persist();
+
 
         return Response.status(Response.Status.OK)
                 .entity("Libro actualizado exitosamente")
@@ -76,13 +76,13 @@ public class BookRest {
     @DELETE
     @Path("/{id}")
     public Response eliminarLibro(@PathParam("id") Long id) {
-        Book libro = repo.findById(id);
-        if (libro == null) {
+        boolean libro = repo.deleteById(id);
+        if (libro == false) {
             return Response.status(Response.Status.NOT_FOUND)
                     .entity("libro no encontrado")
                     .build();
         }
-        libro.delete();
+
         return Response.status(Response.Status.OK)
                 .entity("libro borrado exitosamente")
                 .build();
