@@ -1,13 +1,14 @@
 package com.distribuida.db;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name="books")
-public class Book extends PanacheEntity {
+public class Book  {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @Column
     private  String isbn;
     @Column
@@ -15,11 +16,18 @@ public class Book extends PanacheEntity {
     @Column
     private String author;
     @Column
-    private double price;
+    private Double price;
 
     public Book() {
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getIsbn() {
         return isbn;
@@ -45,11 +53,11 @@ public class Book extends PanacheEntity {
         this.author = author;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 }
