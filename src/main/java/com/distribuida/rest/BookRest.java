@@ -1,5 +1,7 @@
 package com.distribuida.rest;
 
+import com.distribuida.AuthorServiceFactory;
+import com.distribuida.DTO.AuthorDTO;
 import com.distribuida.db.Book;
 import com.distribuida.repo.BookRepository;
 import jakarta.inject.Inject;
@@ -28,6 +30,11 @@ public class BookRest {
 
     @POST
     public Response crearLibros(Book libro) {
+
+        var servicio =AuthorServiceFactory.create();
+        AuthorDTO author= servicio.obtenerAutorId(1).readEntity(AuthorDTO.class);
+        libro.setAuthor_id(author.getId());
+
         repo.persist(libro);
         return Response.status(Response.Status.CREATED)
                 .entity("Libro creado exitosamente")
@@ -36,7 +43,7 @@ public class BookRest {
 
     @PUT
     @Path("/{id}")
-    public Response actualizarLibro(@PathParam("id") Long id, Book libro) {
+    public Response actualizarLibro(@PathParam("id") Integer id, Book libro) {
         Book libroExistente = repo.findById(id);
 
         if (libroExistente == null) {
@@ -44,7 +51,7 @@ public class BookRest {
                     .entity("Libro no encontrado")
                     .build();
         }
-        libroExistente.setAuthor(libro.getAuthor());
+       // libroExistente.setAuthor(libro.getAuthor());
         libroExistente.setIsbn(libro.getIsbn());
         libroExistente.setTitle(libro.getTitle());
         libroExistente.setPrice(libro.getPrice());
@@ -58,7 +65,7 @@ public class BookRest {
     }
     @GET
     @Path("/{id}")
-    public Response obtenerLibroPorId(@PathParam("id") Long id) {
+    public Response obtenerLibroPorId(@PathParam("id") Integer id) {
 
         var libro = repo.findById(id);
 
@@ -75,7 +82,7 @@ public class BookRest {
 
     @DELETE
     @Path("/{id}")
-    public Response eliminarLibro(@PathParam("id") Long id) {
+    public Response eliminarLibro(@PathParam("id") Integer id) {
         boolean libro = repo.deleteById(id);
         if (libro == false) {
             return Response.status(Response.Status.NOT_FOUND)

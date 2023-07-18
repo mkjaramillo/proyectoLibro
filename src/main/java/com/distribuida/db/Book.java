@@ -7,25 +7,36 @@ import jakarta.persistence.*;
 @Table(name="books")
 public class Book  {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+   // @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     @Column
     private  String isbn;
     @Column
     private String title;
-    @Column
-    private String author;
+    //@Column
+   // private String author;
     @Column
     private Double price;
+
+    @Column
+    private Integer author_id;
+
+    public Integer getAuthor_id() {
+        return author_id;
+    }
+
+    public void setAuthor_id(Integer author_id) {
+        this.author_id = author_id;
+    }
 
     public Book() {
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -45,13 +56,13 @@ public class Book  {
         this.title = title;
     }
 
-    public String getAuthor() {
-        return author;
-    }
+   // public String getAuthor() {
+    //    return author;
+   // }
 
-    public void setAuthor(String author) {
-        this.author = author;
-    }
+   // public void setAuthor(String author) {
+    //    this.author = author;
+   // }
 
     public Double getPrice() {
         return price;

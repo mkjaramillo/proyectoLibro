@@ -23,6 +23,9 @@ dependencies {
     implementation ("io.quarkus:quarkus-jdbc-postgresql")
     implementation ("io.quarkus:quarkus-hibernate-orm-panache")
 
+    implementation("org.jboss.resteasy:resteasy-client:6.2.4.Final")
+    implementation("org.jboss.resteasy:resteasy-jackson2-provider:6.2.4.Final")
+
 }
 
 tasks.test {
